@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Guess the Melody',
+      home: GamePage(),
+    );
+  }
+}
+
+class GamePage extends StatefulWidget {
+  @override
+  _GamePageState createState() => _GamePageState();
+}
+
+class _GamePageState extends State<GamePage> {
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  void playSound(String soundPath) async {
+    await audioPlayer.setSource(AssetSource(soundPath));
+    await audioPlayer.resume();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Guess the Melody")),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            playSound('assets/audio/song.mp3'); 
+          },
+          child: Text("Play Melody"),
+        ),
+      ),
+    );
+  }
+}
